@@ -1,5 +1,6 @@
 package com.example.findschedule;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
+    public Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //toolbar.setTitle("Test");
-
+        context = this;
 
     }
 
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_add:
                     fragment = new Note();
-                    ((Note) fragment).setContext(getParent());
+                    ((Note) fragment).setContext(context);
                     loadFragment(fragment);
                     //toolbar.setTitle("Add");
                     return true;

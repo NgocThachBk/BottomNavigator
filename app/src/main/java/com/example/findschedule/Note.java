@@ -1,5 +1,6 @@
 package com.example.findschedule;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
@@ -199,7 +200,7 @@ public class Note extends Fragment {
 
         getDataDbs();
 
-        noteAdapter = new NoteAdapter(arrayList, getContext());
+        noteAdapter = new NoteAdapter(arrayList, context);
         noteAdapter.setClickListener((ItemClickListener) context);
         recyclerView.setAdapter(noteAdapter);
 
@@ -290,6 +291,8 @@ public class Note extends Fragment {
             }
         }
     }
+
+
 
 
     public void onClickMember(View view, int position) {
