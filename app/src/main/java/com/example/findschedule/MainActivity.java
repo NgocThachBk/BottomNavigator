@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_add:
                     fragment = new Note();
+                    ((Note) fragment).setContext(getParent());
                     loadFragment(fragment);
                     //toolbar.setTitle("Add");
                     return true;
