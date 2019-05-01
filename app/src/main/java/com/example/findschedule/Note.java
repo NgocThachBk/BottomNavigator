@@ -38,7 +38,7 @@ import java.util.zip.Inflater;
  * Use the {@link Note#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Note extends Fragment {
+public class Note extends Fragment implements ItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -201,7 +201,7 @@ public class Note extends Fragment {
         getDataDbs();
 
         noteAdapter = new NoteAdapter(arrayList, context);
-        noteAdapter.setClickListener((ItemClickListener) context);
+        noteAdapter.setClickListener(this);
         recyclerView.setAdapter(noteAdapter);
 
 
@@ -294,17 +294,17 @@ public class Note extends Fragment {
 
 
 
-
+    @Override
     public void onClickMember(View view, int position) {
 
     }
 
-
+    @Override
     public void onClickMoney(View view, int position) {
 
     }
 
-
+    @Override
     public void onClickItem(View view, int position) {
         currentIndex = position;
     }
