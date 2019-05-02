@@ -20,6 +20,8 @@
         <activity android:name=".ManageNoteAcivity" />
         <activity android:name=".ShowPlace" />
         <activity android:name=".NumberSchedule" />
+        <activity android:name=".ShowSchedule" />
+        <activity android:name=".MainFragment" />
     </application>
 
 </manifest>

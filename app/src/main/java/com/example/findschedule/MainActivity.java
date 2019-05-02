@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         //toolbar.setTitle("Test");
         context = this;
 
+        Fragment fragment = new SearchFragment();
+
+        loadFragment(fragment);
+
     }
 
 

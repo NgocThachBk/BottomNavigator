@@ -32,8 +32,8 @@ public class NumberSchedule extends AppCompatActivity {
     DatabaseReference ref;
     Data1 data1;
     ArrayList<Data3> listSchedule = new ArrayList<Data3>();
-    ArrayList<Data1> placeList;
-    ArrayList<Data2> dayList = new ArrayList<Data2>();
+     ArrayList<Data1> placeList;
+    public static ArrayList<Data2> dayList = new ArrayList<Data2>();
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -53,8 +53,9 @@ public class NumberSchedule extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 DataSnapshot place = dataSnapshot.child(namePlace);
-                placeList = new ArrayList<Data1>();
+
                 for(DataSnapshot ds: place.getChildren()){
+                    placeList = new ArrayList<Data1>();
                     listSchedule.add(new Data3("Đà Lạt",0));
                     for(DataSnapshot dh:ds.getChildren()){
                         String key = dh.getKey();
@@ -65,7 +66,7 @@ public class NumberSchedule extends AppCompatActivity {
                     }
                     Data2.addItem(placeList,dayList);
                 }
-
+                Log.d("list",placeList.toString());
                 //Log.d("aaa",listplace.toString());
                 ContactsAdapter adapter = new ContactsAdapter(listSchedule);
                 rvContacts.setAdapter(adapter);
@@ -165,17 +166,22 @@ public class NumberSchedule extends AppCompatActivity {
             //.setText("Ngày " + String.valueOf(position + 1));
 
 
-//            viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    Intent intent = new Intent(context,NumberSchedule.class);
-//                    Bundle bundle = new Bundle();
-//                    intent.putExtra("namePlace",value.getName());
-//                    //intent.putExtra("position",position);
-//                    context.startActivity(intent);
-//                    //Toast.makeText(context,"xxx",Toast.LENGTH_SHORT).show();
-//                }
-//            });
+            viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,ShowSchedule.class);
+                    Bundle bundle = new Bundle();
+                    ArrayList<Data2> dayListSplit = new ArrayList<Data2>();
+                    for(Integer i =0; i <= position;i++ ){
+                        dayListSplit.add(dayList.get(i));
+                    }
+                    intent.putExtra("dayList",dayListSplit);
+                    intent.putExtra("numDays",position+1);
+                    //intent.putExtra("position",position);
+                    context.startActivity(intent);
+                    //Toast.makeText(context,"xxx",Toast.LENGTH_SHORT).show();
+                }
+            });
 
             //Button button = viewHolder.messageButton;
 
