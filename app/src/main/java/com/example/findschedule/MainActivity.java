@@ -38,15 +38,19 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_search:
                     //toolbar.setTitle("Search");
+                    fragment = new SearchFragment();
+                    //((Note) fragment).setContext(context);
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_add:
-                    fragment = new Note();
-                    ((Note) fragment).setContext(context);
-                    loadFragment(fragment);
+
                     //toolbar.setTitle("Add");
                     return true;
                 case R.id.navigation_note:
                     //toolbar.setTitle("Note");
+                    fragment = new Note();
+                    ((Note) fragment).setContext(context);
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
                     //toolbar.setTitle("User");

@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ManageNoteAcivity" />
+        <activity android:name=".ShowPlace" />
+        <activity android:name=".NumberSchedule" />
     </application>
 
 </manifest>
