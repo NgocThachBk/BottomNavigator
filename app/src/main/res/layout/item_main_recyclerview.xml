@@ -9,7 +9,8 @@
         android:layout_marginHorizontal="15dp"
         android:layout_height="200dp"
         card_view:cardCornerRadius="4dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="2dp"
         android:elevation="2dp"
         >
 
@@ -49,6 +50,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
+                    android:id="@+id/numberDiaDiem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="6 địa điểm"
@@ -64,7 +66,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:overScrollMode="never"/>
 
         </LinearLayout>
 

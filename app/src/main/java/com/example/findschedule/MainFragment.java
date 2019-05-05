@@ -147,6 +147,11 @@ public class MainFragment extends AppCompatActivity {
                     recyclerView.setAdapter(fragmentList);
 
                     break;
+                case 4:
+                    fragmentList = new FragmentList(contacts.get(3).getPlaceItems());
+                    recyclerView.setAdapter(fragmentList);
+
+                    break;
                 default:
                     //recyclerView.setAdapter(listFragment);
                     break;
@@ -190,6 +195,8 @@ public class MainFragment extends AppCompatActivity {
                 case 2:
 
                     return "Ngày 3";
+                case 3:
+                    return "Ngày 4";
             }
             return null;
         }

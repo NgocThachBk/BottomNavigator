@@ -38,6 +38,7 @@
                 android:text="08:00"
                 android:textColor="@color/backgroundTab"
                 android:textAlignment="center"
+                android:id="@+id/tvTime"
                 />
         </LinearLayout>
 
@@ -60,6 +61,7 @@
                 android:layout_height="10dp"
                 android:text="T/g tham quan : 45p"
                 android:layout_weight="1"
+                android:id="@+id/timeThamQuan"
                 />
             <Button
                 android:layout_width="wrap_content"

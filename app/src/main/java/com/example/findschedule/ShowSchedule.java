@@ -66,6 +66,7 @@ public class ShowSchedule extends AppCompatActivity {
             public RecyclerView recyclerView;
             public ListPlace listPlace;
             public LinearLayout linearLayout;
+            public TextView numberPlace;
 
             public ViewHolder(View itemView) {
 
@@ -73,6 +74,7 @@ public class ShowSchedule extends AppCompatActivity {
                 //mContacts = Contact.createContactsList(20);
                 recyclerView = itemView.findViewById(R.id.rvContacts);
                 linearLayout = itemView.findViewById(R.id.linePlace);
+                numberPlace = itemView.findViewById(R.id.numberDiaDiem);
                 //listPlace = new ListPlace(mContacts);
                 //recyclerView.setAdapter(listPlace);
 
@@ -110,8 +112,10 @@ public class ShowSchedule extends AppCompatActivity {
 
             //Contact contact = mContacts.get(position);
             Data2 contact = mContacts.get(position);
+            Integer numberPlace = contact.getPlaceItems().size();
 
             TextView textView = viewHolder.nameTextView;
+            TextView numberDiaDiem = viewHolder.numberPlace;
 
             RecyclerView recyclerView = viewHolder.recyclerView;
             //listPlace = new ListPlace(contact.getListItems());
@@ -123,6 +127,7 @@ public class ShowSchedule extends AppCompatActivity {
 
 
             textView.setText("Ngày " + String.valueOf(position + 1));
+            numberDiaDiem.setText(String.valueOf(numberPlace) +" địa điểm");
 
 
             viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {

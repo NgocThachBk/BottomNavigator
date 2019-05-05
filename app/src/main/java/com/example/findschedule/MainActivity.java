@@ -3,6 +3,7 @@ package com.example.findschedule;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -29,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         Fragment fragment = new SearchFragment();
-
         loadFragment(fragment);
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationBehavior());
 
     }
 
@@ -43,21 +46,20 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     //toolbar.setTitle("Search");
                     fragment = new SearchFragment();
-                    //((Note) fragment).setContext(context);
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_add:
-
-                    //toolbar.setTitle("Add");
+                    fragment = new FragmentAdd();
+                    loadFragment(fragment);
                     return true;
                 case R.id.navigation_note:
-                    //toolbar.setTitle("Note");
                     fragment = new Note();
                     ((Note) fragment).setContext(context);
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_user:
-                    //toolbar.setTitle("User");
+                    fragment = new FragmentUser();
+                    loadFragment(fragment);
                     return true;
             }
 

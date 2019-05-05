@@ -33,7 +33,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvContacts_main"
-            android:scrollbars="vertical"
+            android:scrollbars="none"
             card_view:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:orientation="vertical"
             android:layout_width="match_parent"

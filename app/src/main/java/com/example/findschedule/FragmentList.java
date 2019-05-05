@@ -22,6 +22,8 @@ public class FragmentList extends
 
         public TextView nameTextView;
         public ImageView imageView;
+        public TextView timeTextView;
+        public TextView timeTQ;
 
 
 
@@ -31,6 +33,8 @@ public class FragmentList extends
 
             nameTextView = (TextView) itemView.findViewById(R.id.textName);
             imageView = (ImageView) itemView.findViewById(R.id.imgPlaceFragment);
+            timeTextView = itemView.findViewById(R.id.tvTime);
+            timeTQ = itemView.findViewById(R.id.timeThamQuan);
         }
     }
 
@@ -60,7 +64,11 @@ public class FragmentList extends
         Data1 contact = mContacts.get(position);
         ImageView imageView = viewHolder.imageView;
         TextView textView = viewHolder.nameTextView;
+        TextView tvStart = viewHolder.timeTextView;
+        TextView timeTQ = viewHolder.timeTQ;
         textView.setText(contact.getname());
+        tvStart.setText(contact.getTimeStart());
+        timeTQ.setText("T/g Tham Quan : " + contact.getPeriodOfTime());
 
 
         //imageView.setImageResource(contact.getLink());
