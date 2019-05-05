@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +59,7 @@ public class ShowPlace extends AppCompatActivity implements View.OnClickListener
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
+                    Log.d("ggg",dataSnapshot.getKey());
                     String key;
                     for(DataSnapshot ds: dataSnapshot.getChildren()){
                         key = ds.getKey();
@@ -103,6 +104,7 @@ public class ShowPlace extends AppCompatActivity implements View.OnClickListener
             //public RecyclerView recyclerView;
             //public ListPlace listPlace;
             public LinearLayout linearLayout;
+            public ImageView xxx;
 
             public ViewHolder(View itemView) {
 
@@ -116,6 +118,7 @@ public class ShowPlace extends AppCompatActivity implements View.OnClickListener
                 numberSchedule = itemView.findViewById(R.id.numberSchedule);
                 //nameTextView = (TextView) itemView.findViewById(R.id.soNgay);
                 //messageButton = (Button) itemView.findViewById(R.id.message_button);
+                xxx = itemView.findViewById(R.id.imgTitle);
             }
         }
 

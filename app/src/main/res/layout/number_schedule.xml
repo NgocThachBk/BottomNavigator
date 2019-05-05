@@ -15,8 +15,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:title="xxx"
+            app:titleTextColor="@color/cardview_light_background"
             >
         </android.support.v7.widget.Toolbar>
 

@@ -5,17 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NumberSchedule extends AppCompatActivity {
-    String namePlace;
+    public static String namePlace;
     EditText editText;
     RecyclerView rvContacts;
     DatabaseReference ref;
@@ -47,6 +51,13 @@ public class NumberSchedule extends AppCompatActivity {
         ref =  firebaseDatabase.getReference("Place");
 
         namePlace = intent.getStringExtra("namePlace");
+
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        toolbar.setTitle("Lịch Trình " + namePlace);
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -93,26 +104,22 @@ public class NumberSchedule extends AppCompatActivity {
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
 
-            //private List<Contact> mContacts;
-            public TextView namePlace;
+
             public TextView numberSchedule;
-            //public Button messageButton;
-            //public RecyclerView recyclerView;
-            //public ListPlace listPlace;
+            public ImageView xxx;
             public LinearLayout linearLayout;
+
+
 
             public ViewHolder(View itemView) {
 
                 super(itemView);
-                //mContacts = Contact.createContactsList(20);
-                //recyclerView = itemView.findViewById(R.id.rvContacts);
+
                 linearLayout = itemView.findViewById(R.id.linePlace);
-                //listPlace = new ListPlace(mContacts);
-                //recyclerView.setAdapter(listPlace);
-                namePlace = itemView.findViewById(R.id.namePlace);
+
                 numberSchedule = itemView.findViewById(R.id.numberSchedule);
-                //nameTextView = (TextView) itemView.findViewById(R.id.soNgay);
-                //messageButton = (Button) itemView.findViewById(R.id.message_button);
+                xxx = itemView.findViewById(R.id.imgTitle);
+
             }
         }
 
@@ -148,11 +155,23 @@ public class NumberSchedule extends AppCompatActivity {
 
 
             final Data3 value = listPlace.get(position);
-            TextView name = viewHolder.namePlace;
+            //TextView name = viewHolder.namePlace;
             TextView number = viewHolder.numberSchedule;
+            ImageView imageView = viewHolder.xxx;
+            Glide.with(context).load(dayList.get(position).getPlaceItems().get(0).getImage()).into(imageView);
+            //imageView.setBackgroundResource(R.drawable.iamgeday5);
+            //name.setText(value.getName());
+            number.setText( String.valueOf(position + 1) + " ngày");
+            if(position == 0){
+                //viewHolder.linearLayout.setBackgroundResource(R.drawable.imageday1);
+                }
+            else if(position == 1){
+                //viewHolder.linearLayout.setBackgroundResource(R.drawable.image12);
+            }
+            else if(position ==2){
+                //viewHolder.linearLayout.setBackgroundResource(R.drawable.imageday13);
+            }
 
-            name.setText(value.getName());
-            number.setText("Lịch trình " + String.valueOf(position + 1) + " ngày");
 
             //RecyclerView recyclerView = viewHolder.recyclerView;
             //listPlace = new ListPlace(contact.getListItems());
@@ -177,11 +196,14 @@ public class NumberSchedule extends AppCompatActivity {
                     }
                     intent.putExtra("dayList",dayListSplit);
                     intent.putExtra("numDays",position+1);
+                    intent.putExtra("namePlace",namePlace);
                     //intent.putExtra("position",position);
                     context.startActivity(intent);
                     //Toast.makeText(context,"xxx",Toast.LENGTH_SHORT).show();
                 }
             });
+
+
 
             //Button button = viewHolder.messageButton;
 

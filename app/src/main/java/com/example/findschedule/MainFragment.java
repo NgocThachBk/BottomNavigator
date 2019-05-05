@@ -32,6 +32,8 @@ public class MainFragment extends AppCompatActivity {
 
     public static Integer numDay;
 
+    public static Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +45,12 @@ public class MainFragment extends AppCompatActivity {
         position = intent.getIntExtra("position",0);
         numDay = intent.getIntExtra("numDay",1);
 
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
 
-        toolbar.setTitle("Ngày 1");
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),dataReceive,numDay);
 
         mViewPager =  findViewById(R.id.container);
@@ -133,14 +135,17 @@ public class MainFragment extends AppCompatActivity {
                 case 1:
                     fragmentList = new FragmentList(contacts.get(0).getPlaceItems());
                     recyclerView.setAdapter(fragmentList);
+
                     break;
                 case 2:
                     fragmentList = new FragmentList(contacts.get(1).getPlaceItems());
                     recyclerView.setAdapter(fragmentList);
+
                     break;
                 case 3:
                     fragmentList = new FragmentList(contacts.get(2).getPlaceItems());
                     recyclerView.setAdapter(fragmentList);
+
                     break;
                 default:
                     //recyclerView.setAdapter(listFragment);
@@ -177,10 +182,13 @@ public class MainFragment extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
+
                     return "Ngày 1";
                 case 1:
+
                     return "Ngày 2";
                 case 2:
+
                     return "Ngày 3";
             }
             return null;

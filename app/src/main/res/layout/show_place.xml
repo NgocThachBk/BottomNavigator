@@ -9,18 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <EditText
-            android:id="@+id/edInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Nhập Địa Điểm Cần Tìm"
-            android:layout_weight="6"/>
 
         <ImageButton
             android:id="@+id/btnSearch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_search_black_24dp"
+            android:background="@color/colorPrimary"/>
+
+        <EditText
+            android:id="@+id/edInput"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_search"/>
+            android:layout_height="match_parent"
+            android:hint="Nhập Địa Điểm Cần Tìm"
+            android:layout_weight="6"
+            android:paddingLeft="5dp"
+            android:textColor="@color/cardview_light_background"
+            android:background="@color/colorPrimary"/>
+
+
 
     </LinearLayout>
 
