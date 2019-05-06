@@ -35,9 +35,9 @@ public class NumberSchedule extends AppCompatActivity {
     RecyclerView rvContacts;
     DatabaseReference ref;
     Data1 data1;
-    ArrayList<Data3> listSchedule = new ArrayList<Data3>();
+    ArrayList<Data3> listSchedule ;
      ArrayList<Data1> placeList;
-    public static ArrayList<Data2> dayList = new ArrayList<Data2>();
+    public static ArrayList<Data2> dayList ;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -52,6 +52,8 @@ public class NumberSchedule extends AppCompatActivity {
 
         namePlace = intent.getStringExtra("namePlace");
 
+        Log.d("namexxx",namePlace);
+
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -64,10 +66,11 @@ public class NumberSchedule extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 DataSnapshot place = dataSnapshot.child(namePlace);
-
+                listSchedule = new ArrayList<Data3>();
+                dayList = new ArrayList<Data2>();
                 for(DataSnapshot ds: place.getChildren()){
                     placeList = new ArrayList<Data1>();
-                    listSchedule.add(new Data3("Đà Lạt",0));
+                    listSchedule.add(new Data3(namePlace,0));
                     for(DataSnapshot dh:ds.getChildren()){
                         String key = dh.getKey();
                         Log.d("key",key);
