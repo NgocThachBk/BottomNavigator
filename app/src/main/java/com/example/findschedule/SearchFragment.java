@@ -4,11 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -32,6 +43,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
     private OnFragmentInteractionListener mListener;
 
     ImageButton imageButton;
+    RecyclerView recyclerView;
+    public ArrayList<DataItemPopular> listPopular = new ArrayList<DataItemPopular>();
 
     public SearchFragment() {
         // Required empty public constructor
@@ -71,6 +84,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
         View view = inflater.inflate(R.layout.search_fragment, container, false);
         imageButton = view.findViewById(R.id.search_frag);
         imageButton.setOnClickListener(this);
+        recyclerView = view.findViewById(R.id.rclPopular);
+        DataItemPopular dataItemPopular = new DataItemPopular();
+        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+        SearchFragment.ContactsAdapter adapter = new SearchFragment.ContactsAdapter(listPopular);
+        recyclerView.setAdapter(adapter);
         return view;
     }
 
@@ -101,9 +122,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(getActivity(),ShowPlace.class);
-        //Bundle bundle = new Bundle();
-        //intent.putExtra("listPlace",dataSend);
-        //intent.putExtra("position",position);
+
         this.startActivity(intent);
     }
 
@@ -121,4 +140,65 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    public static class ContactsAdapter extends
+            RecyclerView.Adapter<SearchFragment.ContactsAdapter.ViewHolder> {
+
+
+        private static List<DataItemPopular> listPopular;
+        private static ArrayList<Data2> dataSend;
+        public static Context context;
+
+        public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+            public ImageView viewPopular;
+
+            public ViewHolder(View itemView) {
+
+                super(itemView);
+
+                viewPopular = itemView.findViewById(R.id.imgPopular);
+            }
+        }
+
+
+
+
+        // Pass in the contact array into the constructor
+        public ContactsAdapter(ArrayList<DataItemPopular> contacts) {
+            listPopular = contacts;
+            //dataSend = contacts;
+        }
+
+
+        @Override
+        public SearchFragment.ContactsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            context = parent.getContext();
+            LayoutInflater inflater = LayoutInflater.from(context);
+
+            View contactView = inflater.inflate(R.layout.item_popular, parent, false);
+
+            SearchFragment.ContactsAdapter.ViewHolder viewHolder = new SearchFragment.ContactsAdapter.ViewHolder(contactView);
+            return viewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+
+            ImageView imageView;
+            imageView = viewHolder.viewPopular;
+            Glide.with(context).load(listPopular.get(i).getLinkImage()).into(imageView);
+
+        }
+
+
+        // Return the total count of items
+        @Override
+        public int getItemCount() {
+            return listPopular.size();
+        }
+    }
+
 }
