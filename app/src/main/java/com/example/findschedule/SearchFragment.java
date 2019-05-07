@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +50,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
 
     ImageButton imageButton;
     RecyclerView recyclerView;
-    public ArrayList<DataItemPopular> listPopular = new ArrayList<DataItemPopular>();
+    RecyclerView rcvPOM;
+    DatabaseReference ref;
+    DatabaseReference placeOfMonth;
+    public ArrayList<DataItemPopular> listPopular ;
+    public ArrayList<DataItemPopular> listPlaceOfMonth;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -85,13 +95,62 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
         imageButton = view.findViewById(R.id.search_frag);
         imageButton.setOnClickListener(this);
         recyclerView = view.findViewById(R.id.rclPopular);
-        DataItemPopular dataItemPopular = new DataItemPopular();
-        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
-        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
-        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
-        dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
-        SearchFragment.ContactsAdapter adapter = new SearchFragment.ContactsAdapter(listPopular);
-        recyclerView.setAdapter(adapter);
+        rcvPOM = view.findViewById(R.id.rclPlaceMonth);
+        final DataItemPopular dataItemPopular = new DataItemPopular();
+        //dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+       // dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+        //dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+        //dataItemPopular.addItem("https://firebasestorage.googleapis.com/v0/b/test2shadow.appspot.com/o/Image%2Fbai-bien-my-khe.jpg?alt=media&token=3d506d9a-6051-463b-9e38-71260a41c565",listPopular);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        ref =  firebaseDatabase.getReference("PlacePopular");
+        placeOfMonth = firebaseDatabase.getReference("PlaceOfMonth");
+
+        ValueEventListener eventListener = new ValueEventListener( ) {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listPopular = new ArrayList<DataItemPopular>();
+                DataItemPopular dataValue;
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                   dataValue = ds.getValue(DataItemPopular.class);
+                   listPopular.add(dataValue);
+                }
+                SearchFragment.ContactsAdapter adapter = new SearchFragment.ContactsAdapter(listPopular);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        ValueEventListener monthPlace = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listPlaceOfMonth = new ArrayList<DataItemPopular>();
+                DataItemPopular dataValue;
+                DataSnapshot getPlace = dataSnapshot.child("ListPlace");
+                for(DataSnapshot ds: getPlace.getChildren()){
+                    dataValue = ds.getValue(DataItemPopular.class);
+                    listPlaceOfMonth.add(dataValue);
+                }
+
+                ListPlaceOfMonth listPlace;
+                listPlace = new ListPlaceOfMonth(listPlaceOfMonth);
+
+                rcvPOM.setAdapter(listPlace);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+
+        ref.addListenerForSingleValueEvent(eventListener);
+        placeOfMonth.addListenerForSingleValueEvent(monthPlace);
+
         return view;
     }
 
@@ -154,12 +213,14 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
 
 
             public ImageView viewPopular;
+            public TextView textPopular;
 
             public ViewHolder(View itemView) {
 
                 super(itemView);
 
                 viewPopular = itemView.findViewById(R.id.imgPopular);
+                textPopular = itemView.findViewById(R.id.tvPopular);
             }
         }
 
@@ -188,9 +249,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
             ImageView imageView;
+            TextView textView;
             imageView = viewHolder.viewPopular;
+            textView = viewHolder.textPopular;
             Glide.with(context).load(listPopular.get(i).getLinkImage()).into(imageView);
-
+            textView.setText(listPopular.get(i).getName());
         }
 
 

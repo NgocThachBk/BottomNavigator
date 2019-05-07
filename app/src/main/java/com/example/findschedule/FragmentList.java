@@ -71,19 +71,10 @@ public class FragmentList extends
         timeTQ.setText("T/g Tham Quan : " + contact.getPeriodOfTime());
 
 
-        //imageView.setImageResource(contact.getLink());
+
         Glide.with(context).load(contact.getImage()).into(imageView);
 
-        //Button button = viewHolder.messageButton;
 
-//            if (contact.isOnline()) {
-//                button.setText("Message");
-//                button.setEnabled(true);
-//            }
-//            else {
-//                button.setText("Offline");
-//                button.setEnabled(false);
-//            }
 
     }
 

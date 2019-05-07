@@ -3,23 +3,29 @@ package com.example.findschedule;
 import java.util.ArrayList;
 
 public class DataItemPopular {
-    private String linkImage;
+    private String LinkImage;
+    private String Name;
 
     public DataItemPopular(){}
 
-    public DataItemPopular(String linkimage){
-        this.linkImage = linkimage;
+    public DataItemPopular(String linkimage,String name){
+        this.LinkImage = linkimage;
+        this.Name = name;
     }
 
     public void setLinkImage(String linkImage) {
-        this.linkImage = linkImage;
+        this.LinkImage = linkImage;
     }
+
+    public void setName(String name) {this.Name = name;}
 
     public String getLinkImage(){
-        return linkImage;
+        return LinkImage;
     }
 
-    public void addItem(String link, ArrayList<DataItemPopular> listPopular){
-        listPopular.add(new DataItemPopular(link));
+    public String getName() {return  Name;}
+
+    public void addItem(String link,String name, ArrayList<DataItemPopular> listPopular){
+        listPopular.add(new DataItemPopular(link,name));
     }
 }
