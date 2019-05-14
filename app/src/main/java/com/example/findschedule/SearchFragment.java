@@ -214,6 +214,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
 
             public ImageView viewPopular;
             public TextView textPopular;
+            public LinearLayout itemPopular;
 
             public ViewHolder(View itemView) {
 
@@ -221,6 +222,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
 
                 viewPopular = itemView.findViewById(R.id.imgPopular);
                 textPopular = itemView.findViewById(R.id.tvPopular);
+                itemPopular = itemView.findViewById(R.id.itemPopular);
             }
         }
 
@@ -246,7 +248,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        public void onBindViewHolder(ViewHolder viewHolder,final int i) {
 
             ImageView imageView;
             TextView textView;
@@ -254,6 +256,18 @@ public class SearchFragment extends Fragment implements View.OnClickListener  {
             textView = viewHolder.textPopular;
             Glide.with(context).load(listPopular.get(i).getLinkImage()).into(imageView);
             textView.setText(listPopular.get(i).getName());
+
+            viewHolder.itemPopular.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,NumberSchedule.class);
+                    Bundle bundle = new Bundle();
+
+                    intent.putExtra("namePlace",listPopular.get(i).getName());
+                    context.startActivity(intent);
+                    //Toast.makeText(context,"xxx",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
 

@@ -19,6 +19,8 @@
             android:background="@color/colorPrimary"
             app:title="xxx"
             app:titleTextColor="@color/cardview_light_background"
+            app:theme="@style/AppThemeMenu"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
             >
         </android.support.v7.widget.Toolbar>
 
@@ -27,8 +29,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="chi phi"
-        android:id="@+id/btnChiPhi"/>
+        android:text="chi phí"
+        android:id="@+id/btnChiPhi"
+        android:layout_gravity="center"/>
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"

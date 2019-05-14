@@ -23,6 +23,7 @@
             android:background="@color/colorPrimary"
             app:titleTextColor="@color/cardview_light_background"
             app:layout_scrollFlags="scroll|enterAlways"
+            app:theme="@style/AppThemeMenu"
             >
 
         </android.support.v7.widget.Toolbar>

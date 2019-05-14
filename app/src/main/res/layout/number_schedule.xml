@@ -19,7 +19,7 @@
             android:background="@color/colorPrimary"
             app:title="xxx"
             app:titleTextColor="@color/cardview_light_background"
-
+            app:theme="@style/AppThemeMenu"
 
             >
         </android.support.v7.widget.Toolbar>

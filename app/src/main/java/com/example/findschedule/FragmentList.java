@@ -87,6 +87,7 @@ public class FragmentList extends
 
                 intent.putExtra("namePlace",contact.getname());
                 intent.putExtra("listImage",contact.getListImage());
+                intent.putExtra("imageTitle",contact.getImage());
                 //intent.putExtra("position",position);
                 //intent.putExtra("numDay",numDay);
                 context.startActivity(intent);

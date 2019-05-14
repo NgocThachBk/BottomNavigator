@@ -46,7 +46,10 @@ public class SlidingImage_Adapter extends PagerAdapter {
                 .findViewById(R.id.image);
 
 
-        Glide.with(context).load(IMAGES.get(position)).into(imageView);
+        if(IMAGES.size() > 0){
+            Glide.with(context).load(IMAGES.get(position)).into(imageView);
+        }
+
         //imageView.setImageResource(IMAGES.get(position));
 
         view.addView(imageLayout, 0);

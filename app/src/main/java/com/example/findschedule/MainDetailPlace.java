@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class MainDetailPlace extends AppCompatActivity
@@ -20,6 +22,7 @@ public class MainDetailPlace extends AppCompatActivity
     ImageView titltImg;
 
     String placeName;
+    String imageTitle;
     TextView textView;
     ArrayList<String> listImage;
     @Override
@@ -32,7 +35,7 @@ public class MainDetailPlace extends AppCompatActivity
         Intent intent = this.getIntent();
 
         placeName = intent.getStringExtra("namePlace");
-
+        imageTitle = intent.getStringExtra("imageTitle");
         listImage = (ArrayList<String>)intent.getSerializableExtra("listImage");
 
 
@@ -40,6 +43,9 @@ public class MainDetailPlace extends AppCompatActivity
         textView.setText(placeName);
 
         titltImg = (ImageView) findViewById(R.id.titltImg);
+
+        Glide.with(this).load(imageTitle).into(titltImg);
+
         titltImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,12 +1,15 @@
 package com.example.findschedule;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -36,7 +39,7 @@ public class ListPlaceOfMonth extends RecyclerView.Adapter<ListPlaceOfMonth.View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder,final int i) {
 
         ImageView imageView;
         TextView textView;
@@ -44,6 +47,18 @@ public class ListPlaceOfMonth extends RecyclerView.Adapter<ListPlaceOfMonth.View
         textView = viewHolder.textPlace;
         Glide.with(context).load(placeOfMonth.get(i).getLinkImage()).into(imageView);
         textView.setText(placeOfMonth.get(i).getName());
+
+        viewHolder.itemPlaceOfMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,NumberSchedule.class);
+                Bundle bundle = new Bundle();
+
+                intent.putExtra("namePlace",placeOfMonth.get(i).getName());
+                context.startActivity(intent);
+                //Toast.makeText(context,"xxx",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -56,12 +71,13 @@ public class ListPlaceOfMonth extends RecyclerView.Adapter<ListPlaceOfMonth.View
 
         public TextView textPlace;
         public ImageView imgPlace;
+        public LinearLayout itemPlaceOfMonth;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPlace = itemView.findViewById(R.id.imgPlace);
             textPlace = itemView.findViewById(R.id.tvName);
-
+            itemPlaceOfMonth = itemView.findViewById(R.id.itemPlaceOfMonth);
         }
     }
 }

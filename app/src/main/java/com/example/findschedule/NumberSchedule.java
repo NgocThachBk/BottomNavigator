@@ -70,7 +70,7 @@ public class NumberSchedule extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String linkImage;
-                ArrayList<String> listImage = new ArrayList<String>();
+                //ArrayList<String> listImage = new ArrayList<String>();
                 DataSnapshot place = dataSnapshot.child(namePlace);
                 listSchedule = new ArrayList<Data3>();
                 dayList = new ArrayList<Data2>();
@@ -79,6 +79,7 @@ public class NumberSchedule extends AppCompatActivity {
                     placeList = new ArrayList<DataExtra>();
                     listSchedule.add(new Data3(namePlace,0));
                     for(DataSnapshot dh:ds.getChildren()){
+                        ArrayList<String> listImage = new ArrayList<String>();
                         dataExtra = new DataExtra();
                         String key = dh.getKey();
                         Log.d("key",key);
@@ -101,10 +102,12 @@ public class NumberSchedule extends AppCompatActivity {
                     }
                     Data2.addItem(placeList,dayList);
                 }
-                Log.d("list",placeList.toString());
+                //Log.d("list",placeList.toString());
                 //Log.d("aaa",listplace.toString());
-                ContactsAdapter adapter = new ContactsAdapter(listSchedule);
-                rvContacts.setAdapter(adapter);
+                if(listSchedule.size() > 0){
+                    ContactsAdapter adapter = new ContactsAdapter(listSchedule);
+                    rvContacts.setAdapter(adapter);
+                }
             }
 
             @Override
