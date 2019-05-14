@@ -1,6 +1,9 @@
 package com.example.findschedule;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,7 @@ public class FragmentList extends
         public ImageView imageView;
         public TextView timeTextView;
         public TextView timeTQ;
+        public CardView cardView;
 
 
 
@@ -35,14 +39,15 @@ public class FragmentList extends
             imageView = (ImageView) itemView.findViewById(R.id.imgPlaceFragment);
             timeTextView = itemView.findViewById(R.id.tvTime);
             timeTQ = itemView.findViewById(R.id.timeThamQuan);
+            cardView = itemView.findViewById(R.id.card_view);
         }
     }
 
-    private List<Data1> mContacts;
+    private List<DataExtra> mContacts;
     public static Context context;
 
     // Pass in the contact array into the constructor
-    public FragmentList(List<Data1> contacts) {
+    public FragmentList(List<DataExtra> contacts) {
         mContacts = contacts;
     }
 
@@ -61,7 +66,7 @@ public class FragmentList extends
     @Override
     public void onBindViewHolder(FragmentList.ViewHolder viewHolder, int position) {
 
-        Data1 contact = mContacts.get(position);
+        final DataExtra contact = mContacts.get(position);
         ImageView imageView = viewHolder.imageView;
         TextView textView = viewHolder.nameTextView;
         TextView tvStart = viewHolder.timeTextView;
@@ -73,6 +78,21 @@ public class FragmentList extends
 
 
         Glide.with(context).load(contact.getImage()).into(imageView);
+
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,MainDetailPlace.class);
+                Bundle bundle = new Bundle();
+
+                intent.putExtra("namePlace",contact.getname());
+                intent.putExtra("listImage",contact.getListImage());
+                //intent.putExtra("position",position);
+                //intent.putExtra("numDay",numDay);
+                context.startActivity(intent);
+                //Toast.makeText(context,"xxx",Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 

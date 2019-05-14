@@ -3,6 +3,7 @@ package com.example.findschedule;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -37,8 +38,9 @@ public class NumberSchedule extends AppCompatActivity {
     RecyclerView rvContacts;
     DatabaseReference ref;
     Data1 data1;
+    DataExtra dataExtra;
     ArrayList<Data3> listSchedule ;
-     ArrayList<Data1> placeList;
+     ArrayList<DataExtra> placeList;
     public static ArrayList<Data2> dayList ;
 
     @Override
@@ -67,19 +69,35 @@ public class NumberSchedule extends AppCompatActivity {
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                String linkImage;
+                ArrayList<String> listImage = new ArrayList<String>();
                 DataSnapshot place = dataSnapshot.child(namePlace);
                 listSchedule = new ArrayList<Data3>();
                 dayList = new ArrayList<Data2>();
+
                 for(DataSnapshot ds: place.getChildren()){
-                    placeList = new ArrayList<Data1>();
+                    placeList = new ArrayList<DataExtra>();
                     listSchedule.add(new Data3(namePlace,0));
                     for(DataSnapshot dh:ds.getChildren()){
+                        dataExtra = new DataExtra();
                         String key = dh.getKey();
                         Log.d("key",key);
+
+
                         data1 = dh.getValue(Data1.class);
                         //Log.d("hhh",data1.getname());
-                        placeList.add(data1);
+
+
+                        DataSnapshot dataListImage = dh.child("ListImage");
+                        for(DataSnapshot dx : dataListImage.getChildren()){
+                            linkImage = (String) dx.getValue();
+                            listImage.add(linkImage);
+                        }
+
+                        Log.d("image",listImage.toString());
+                        dataExtra.setObject(data1);
+                        dataExtra.setListImage(listImage);
+                        placeList.add(dataExtra);
                     }
                     Data2.addItem(placeList,dayList);
                 }

@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Data2 implements Serializable {
-    private ArrayList<Data1> PlaceItems;
+    private ArrayList<DataExtra> PlaceItems;
 
     public Data2(){}
 
-    public Data2(ArrayList<Data1> Items){
+    public Data2(ArrayList<DataExtra> Items){
         PlaceItems = Items;
     }
 
-    public void setPlaceItems(ArrayList<Data1> placeItems) {
+    public void setPlaceItems(ArrayList<DataExtra> placeItems) {
         this.PlaceItems = placeItems;
     }
 
-    public ArrayList<Data1> getPlaceItems(){return PlaceItems;}
+    public ArrayList<DataExtra> getPlaceItems(){return PlaceItems;}
 
-    public static void addItem(ArrayList<Data1> item,ArrayList<Data2> listItem){
+    public static void addItem(ArrayList<DataExtra> item,ArrayList<Data2> listItem){
         listItem.add(new Data2(item));
     }
 }

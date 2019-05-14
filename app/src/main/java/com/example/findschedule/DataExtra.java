@@ -3,7 +3,7 @@ package com.example.findschedule;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Data1 implements Serializable {
+public class DataExtra implements Serializable {
     private String name;
     private String Image;
     private String TimeStart;
@@ -11,12 +11,22 @@ public class Data1 implements Serializable {
     private String AteMoney;
     private String GateMoney;
     private String RestMoney;
+    private ArrayList<String> ListImage;
+    public DataExtra(){}
 
-    public Data1(){}
-
-    public Data1(String name, String image){
+    public DataExtra(String name, String image){
         this.name = name;
         this.Image = image;
+    }
+
+    public void setObject(Data1 data1){
+        this.name = data1.getname();
+        this.Image = data1.getImage();
+        this.TimeStart = data1.getTimeStart();
+        this.PeriodOfTime = data1.getPeriodOfTime();
+        this.AteMoney = data1.getAteMoney();
+        this.GateMoney = data1.getGateMoney();
+        this.RestMoney = data1.getRestMoney();
     }
 
     public void setname(String name){
@@ -37,7 +47,7 @@ public class Data1 implements Serializable {
 
     public void setRestMoney (String restMoney) {this.RestMoney = restMoney;}
 
-
+    public void setListImage( ArrayList<String> listImage) {this.ListImage = listImage;}
 
     public String getname(){return  name;}
     public String getImage(){return Image;}
@@ -46,5 +56,5 @@ public class Data1 implements Serializable {
     public String getAteMoney() {return AteMoney;}
     public String getGateMoney() {return GateMoney;}
     public String getRestMoney() {return RestMoney;}
-
+    public ArrayList<String> getListImage() {return ListImage;}
 }

@@ -37,7 +37,7 @@ public class ListPlace extends
 
     //private List<Placeitem> mContacts;
 
-    private List<Data1> mContacts;
+    private List<DataExtra> mContacts;
 
     public static Context context;
 
@@ -46,7 +46,7 @@ public class ListPlace extends
 //            mContacts = contacts;
 //        }
 
-    public ListPlace(List<Data1> contacts) {
+    public ListPlace(List<DataExtra> contacts) {
         mContacts = contacts;
     }
 
@@ -67,7 +67,7 @@ public class ListPlace extends
     public void onBindViewHolder(ListPlace.ViewHolder viewHolder, int position) {
 
         //Placeitem contact = mContacts.get(position);
-        Data1 contact = mContacts.get(position);
+        DataExtra contact = mContacts.get(position);
         ImageView imageView = viewHolder.imageView;
         TextView textView = viewHolder.nameTextView;
         //textView.setText(contact.getName());
