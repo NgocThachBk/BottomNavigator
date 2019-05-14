@@ -10,4 +10,5 @@
     <color name = "tabColor">#093FEB</color>
     <color name = "backgroundTab">#FFFFFF</color>
     <color name = "textGray">#B8B6B6</color>
+    <color name="less_grey">#d0d0d0</color>
 </resources>

@@ -22,6 +22,7 @@
         <activity android:name=".NumberSchedule" />
         <activity android:name=".ShowSchedule" />
         <activity android:name=".MainFragment" />
+        <activity android:name=".MainChiPhi" />
     </application>
 
 </manifest>

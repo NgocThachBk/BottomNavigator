@@ -18,10 +18,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowSchedule extends AppCompatActivity {
+public class ShowSchedule extends AppCompatActivity implements View.OnClickListener {
 
     ArrayList<Data2> dayList = new ArrayList<Data2>();
     public static Integer numDay;
+    Button btnChiPhi;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -41,12 +42,25 @@ public class ShowSchedule extends AppCompatActivity {
 
         toolbar.setTitle("Lịch Trình " + namePlace + " " + String.valueOf(numDay) + " ngày");
 
+        btnChiPhi = findViewById(R.id.btnChiPhi);
+
+        btnChiPhi.setOnClickListener(this);
+
         final RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts_main);
 
         ContactsAdapter adapter = new ContactsAdapter(dayList);
 
         rvContacts.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this,MainChiPhi.class);
+        Bundle bundle = new Bundle();
+
+        intent.putExtra("ChiPhi",dayList);
+        this.startActivity(intent);
     }
 
     public static class ContactsAdapter extends

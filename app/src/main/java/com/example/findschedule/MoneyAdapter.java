@@ -1,6 +1,7 @@
 package com.example.findschedule;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
     ArrayList<String[]> moneys; // 0 is id_note, 1 is name, 2 is money
     Context context;
     DatabaseHelper databaseHelper;
+    String type;
     public MoneyAdapter(ArrayList<String[]> moneys, Context context) {
         this.moneys = moneys;
         this.context = context;
@@ -60,6 +62,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
 
             money = itemView.findViewById(R.id.content);
             delete = itemView.findViewById(R.id.delete_row);
+            delete.setTextColor(Color.parseColor("#ffffff"));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,16 +72,16 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
             });
 
 
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (clickListener != null) {
-                        clickListener.onClickMoney(v, getAdapterPosition());
-                        removeMoney(getAdapterPosition());
-                    }
-
-                }
-            });
+//            delete.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (clickListener != null) {
+//                        clickListener.onClickMoney(v, getAdapterPosition());
+//                        removeMoney(getAdapterPosition());
+//                    }
+//
+//                }
+//            });
         }
     }
 }
