@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,41 +50,97 @@ public class ShowPlace extends AppCompatActivity implements View.OnClickListener
         ref =  firebaseDatabase.getReference("Place");
         button = findViewById(R.id.btnSearch);
         editText = findViewById(R.id.edInput);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                textSearch = editText.getText().toString();
+                Log.d("testChuoi",textSearch);
+
+                if(!textSearch.isEmpty()){
+
+                    ValueEventListener eventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            listplace = new ArrayList<Data3>();
+                            Log.d("ggg",dataSnapshot.getKey());
+                            String key;
+                            for(DataSnapshot ds: dataSnapshot.getChildren()){
+                                key = ds.getKey();
+                                Log.d("key",key);
+                                if(key.toLowerCase().contains(textSearch.toLowerCase())){
+                                    long number = ds.getChildrenCount();
+                                    listplace.add(new Data3(key, number));
+                                }
+                            }
+
+                            Log.d("aaa",listplace.toString());
+                            ContactsAdapter adapter = new ContactsAdapter(listplace);
+                            rvContacts.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+
+                    ref.addListenerForSingleValueEvent(eventListener);
+                }
+                else{
+                    Log.d("nill","yyyy");
+                    listplace = new ArrayList<Data3>();
+                    ContactsAdapter adapter = new ContactsAdapter(listplace);
+                    rvContacts.setAdapter(adapter);
+                }
+            }
+        });
+
         button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        textSearch = editText.getText().toString();
-        if(textSearch != ""){
-            listplace = new ArrayList<Data3>();
-            ValueEventListener eventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.d("ggg",dataSnapshot.getKey());
-                    String key;
-                    for(DataSnapshot ds: dataSnapshot.getChildren()){
-                        key = ds.getKey();
-                        Log.d("key",key);
-                        if(key.toLowerCase().contains(textSearch.toLowerCase())){
-                            long number = ds.getChildrenCount();
-                            listplace.add(new Data3(key, number));
-                        }
-                    }
-
-                    Log.d("aaa",listplace.toString());
-                    ContactsAdapter adapter = new ContactsAdapter(listplace);
-                    rvContacts.setAdapter(adapter);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            };
-
-            ref.addListenerForSingleValueEvent(eventListener);
-        }
+//        textSearch = editText.getText().toString();
+//        if(textSearch != ""){
+//            listplace = new ArrayList<Data3>();
+//            ValueEventListener eventListener = new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    Log.d("ggg",dataSnapshot.getKey());
+//                    String key;
+//                    for(DataSnapshot ds: dataSnapshot.getChildren()){
+//                        key = ds.getKey();
+//                        Log.d("key",key);
+//                        if(key.toLowerCase().contains(textSearch.toLowerCase())){
+//                            long number = ds.getChildrenCount();
+//                            listplace.add(new Data3(key, number));
+//                        }
+//                    }
+//
+//                    Log.d("aaa",listplace.toString());
+//                    ContactsAdapter adapter = new ContactsAdapter(listplace);
+//                    rvContacts.setAdapter(adapter);
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            };
+//
+//            ref.addListenerForSingleValueEvent(eventListener);
+//        }
     }
 
 

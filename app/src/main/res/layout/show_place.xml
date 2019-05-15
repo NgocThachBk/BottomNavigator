@@ -25,7 +25,9 @@
             android:layout_weight="6"
             android:paddingLeft="5dp"
             android:textColor="@color/cardview_light_background"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:text=""/>
+
 
 
 
